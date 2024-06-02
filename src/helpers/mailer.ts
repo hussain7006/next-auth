@@ -19,14 +19,13 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
         }
 
-        const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // Use `true` for port 465, `false` for all other ports
+        var transporter = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
             auth: {
-                user: "maddison53@ethereal.email", // ❌
-                pass: "jn7jnAPss4f63QBp6D", // ❌
-            },
+                user: "9bcfac67635a18",
+                pass: "a52ef65e231725"
+            }
         });
 
 
