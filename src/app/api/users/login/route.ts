@@ -12,13 +12,16 @@ export async function POST(request: NextRequest) {
     try {
 
         const reqBody = await request.json()
+        console.log("reqBody:", reqBody);
+
         const { email, password } = reqBody;
 
 
         // validation
-        console.log(reqBody)
 
         const user = await User.findOne({ email })
+        console.log("user:", user);
+
 
         if (!user) {
             return NextResponse.json({ error: "User does not exist" }, { status: 400 })
@@ -27,6 +30,7 @@ export async function POST(request: NextRequest) {
         console.log("User exist");
 
         const validPassword = await bcryptjs.compare(password, user.password)
+        console.log("validPassword:", validPassword);
 
         if (!validPassword) {
             return NextResponse.json({ error: "Check your credentials" }, { status: 400 })
@@ -41,6 +45,10 @@ export async function POST(request: NextRequest) {
 
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
+
+
+        console.log("token:", token);
+
 
 
         const response = NextResponse.json({
